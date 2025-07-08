@@ -1,0 +1,124 @@
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: 'Segoe UI', sans-serif;
+}
+#bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+  opacity: 0.7;
+}
+.content {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+}
+.birthday-heading {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(135deg, #ab001b, #7578a7);
+  padding: 10px 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 12px #ab001b;
+  animation: pulseShadow 2s infinite;
+  margin-bottom: 30px;
+}
+@keyframes pulseShadow {
+  0% { box-shadow: 0 0 10px #ab001b; }
+  50% { box-shadow: 0 0 20px #7578a7; }
+  100% { box-shadow: 0 0 10px #ab001b; }
+}
+.gift-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.gift-box-emoji {
+  font-size: 6rem;
+  cursor: pointer;
+  transition: transform 0.5s ease;
+  animation: bounce 1.5s infinite;
+}
+.gift-box-emoji.opened {
+  transform: scale(1.4) rotate(10deg);
+  animation: none;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.gift-message {
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 15px;
+  border: 2px dashed #ab001b;
+  box-shadow: 0 0 12px rgba(117, 120, 167, 0.5);
+  font-family: 'Comic Sans MS', cursive;
+  font-size: 1rem;
+  display: none;
+  max-width: 90vw;
+}
+#surpriseBtn {
+  margin-top: 30px;
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(135deg, #ab001b, #7578a7);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 0 15px #ab001b;
+  animation: glowPulse 1.8s infinite;
+  transition: transform 0.2s ease;
+}
+#surpriseBtn:hover {
+  transform: scale(1.05);
+}
+@keyframes glowPulse {
+  0% { box-shadow: 0 0 10px #ab001b; }
+  50% { box-shadow: 0 0 20px #7578a7; }
+  100% { box-shadow: 0 0 10px #ab001b; }
+}
+.sparkle {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0;
+  animation: sparkleFade 1s ease-in-out forwards;
+  display: none;
+}
+@keyframes sparkleFade {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@media (max-width: 768px) {
+  .birthday-heading { font-size: 1.2rem; padding: 8px 15px; }
+  .gift-box-emoji { font-size: 4.5rem; }
+  .gift-message { font-size: 0.95rem; padding: 15px; }
+}

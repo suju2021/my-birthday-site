@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Surprise Slideshow</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <style>
+    * { box-sizing: border-box; }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: black;
+    }
+
+    .color-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      background: linear-gradient(45deg, rgba(171, 0, 27, 0.4), rgba(117, 120, 167, 0.4), rgba(171, 0, 27, 0.4));
+      background-size: 600% 600%;
+      animation: gradientMagic 15s ease infinite;
+      z-index: 1;
+    }
+
+    @keyframes gradientMagic {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .swiper {
+      width: 90%;
+      height: 80vh;
+      margin: 20px auto 0;
+      z-index: 1;
+      border-radius: 20px;
+      box-shadow: 0 0 15px #ab001b, 0 0 25px #7578a7;
+      width: 80%;
+      height: 75%;
+    }
+
+    .swiper-slide {
+      background-position: center;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 15px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .swiper-slide img {
+      width: 75%;
+      height: 75%;
+      object-fit: cover;
+    }
+
+    .extra-video {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 0 50px;
+      z-index: 1;
+    }
+
+    .extra-video video {
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    .video-buttons {
+      margin-top: 15px;
+    }
+
+    .video-buttons button {
+      background-color: #7578a7;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 24px;
+      box-shadow: 0 0 10px #d61b5e;
+      margin: 0 10px;
+      transition: background 0.3s;
+    }
+
+    .video-buttons button:hover {
+      background-color: #a91347;
+    }
+
+    @media (max-width: 768px) {
+      .swiper { height: 70vh; }
+    }
+
+    @media (max-width: 500px) {
+      .swiper { width: 100%; height: 60vh; }
+    }
+
+    #confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      width: 100vw;
+      height: 100vh;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Confetti Blaster -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Magical Color Overlay -->
+  <div class="color-overlay"></div>
+
+  <!-- Slideshow -->
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <!-- Slides -->
+      <div class="swiper-slide"><img src="https://uploads.onecompiler.io/434v9ss5m/43q3hu4dn/Snapchat-2004243910.jpg" alt="Slide 1"></div>
+      <div class="swiper-slide"><img src="https://uploads.onecompiler.io/434v9ss5m/43q3hu4dn/Snapchat-852842566.jpg" alt="Slide 2"></div>
+      <div class="swiper-slide"><img src="https://uploads.onecompiler.io/434v9ss5m/43q3hu4dn/Snapchat-29061473.jpg" alt="Slide 3"></div>
+      <div class="swiper-slide"><img src="https://uploads.onecompiler.io/434v9ss5m/43q3hu4dn/Snapchat-99177260.jpg" alt="Slide 4"></div>
+      <div class="swiper-slide"><img src="https://uploads.onecompiler.io/434v9ss5m/43q3hu4dn/Snapchat-155893786.jpg" alt="Slide 5"></div>
+      <div class="swiper-slide"><img src="https://uploads.onecompiler.io/434v9ss5m/43q3hu4dn/Snapchat-493068743.jpg" alt="Slide 6"></div>
+      <div class="swiper-slide"><img src="https://uploads.onecompiler.io/434v9ss5m/43q3hu4dn/Snapchat-653230715.jpg" alt="Slide 7"></div>
+      <div class="swiper-slide"><img src="https://uploads.onecompiler.io/434v9ss5m/43q3hu4dn/Snapchat-765896297.jpg" alt="Slide 8"></div>
+      <div class="swiper-slide"><img src="https://uploads.onecompiler.io/434v9ss5m/43q3hu4dn/Snapchat-1052194311.jpg" alt="Slide 9"></div>
+      <div class="swiper-slide"><img src="https://uploads.onecompiler.io/434v9ss5m/43q3hu4dn/Snapchat-1053154223.jpg" alt="Slide 10"></div>
+      <div class="swiper-slide"><img src="https://uploads.onecompiler.io/434v9ss5m/43q3hu4dn/Snapchat-1075732308.jpg" alt="Slide 11"></div>
+      <div class="swiper-slide"><img src="https://uploads.onecompiler.io/434v9ss5m/43q3hu4dn/Snapchat-1574518099.jpg" alt="Slide 12"></div>
+      <div class="swiper-slide"><img src="https://uploads.onecompiler.io/434v9ss5m/43q3hu4dn/Snapchat-1745621032.jpg" alt="Slide 13"></div>
+      <div class="swiper-slide"><img src="https://uploads.onecompiler.io/434v9ss5m/43q3hu4dn/Snapchat-2103416455.jpg" alt="Slide 14"></div>
+      <div class="swiper-slide"><img src="https://uploads.onecompiler.io/434v9ss5m/43q3hu4dn/Snapchat-2075267364.jpg" alt="Slide 15"></div>
+      <div class="swiper-slide"><img src="https://uploads.onecompiler.io/434v9ss5m/43q3hu4dn/Snapchat-2078274166.jpg" alt="Slide 16"></div>
+    </div>
+  </div>
+
+  <!-- Extra Video Section -->
+  <div class="extra-video">
+    <video id="specialVideo" width="800" height="450" controls>
+      <source src="special.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="video-buttons">
+      <button id="toggleButton" onclick="togglePlayPause()">⏸️</button>
+      <button onclick="downloadVideo()">⬇️</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      loop: true,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+      slidesPerView: 3,
+      spaceBetween: 20,
+      breakpoints: {
+        0: { slidesPerView: 1 },
+        600: { slidesPerView: 2 },
+        900: { slidesPerView: 3 }
+      }
+    });
+
+    function togglePlayPause() {
+      const video = document.getElementById("specialVideo");
+      const button = document.getElementById("toggleButton");
+      if (video.paused) {
+        video.play();
+        button.innerText = "⏸️";
+      } else {
+        video.pause();
+        button.innerText = "▶️";
+      }
+    }
+
+    function downloadVideo() {
+      const link = document.createElement('a');
+      link.href = 'special.mp4';
+      link.download = 'special.mp4';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // 🎉 Confetti Effect
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let confetti = [];
+    const confettiCount = 300;
+    const gravity = 0.5;
+    const colors = ["#f94144", "#f3722c", "#f8961e", "#43aa8b", "#577590", "#f9c74f"];
+
+    function randomRange(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function createConfetti() {
+      for (let i = 0; i < confettiCount; i++) {
+        confetti.push({
+          x: randomRange(0, canvas.width),
+          y: randomRange(-canvas.height, 0),
+          size: randomRange(5, 10),
+          color: colors[Math.floor(Math.random() * colors.length)],
+          speedX: randomRange(-2, 2),
+          speedY: randomRange(2, 5),
+          opacity: randomRange(0.7, 1)
+        });
+      }
+    }
+
+    function drawConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      confetti.forEach((c, i) => {
+        ctx.globalAlpha = c.opacity;
+        ctx.fillStyle = c.color;
+        ctx.beginPath();
+        ctx.arc(c.x, c.y, c.size, 0, Math.PI * 2);
+        ctx.fill();
+        c.x += c.speedX;
+        c.y += c.speedY + gravity;
+        if (c.y > canvas.height) confetti[i].y = -10;
+      });
+    }
+
+    createConfetti();
+    const interval = setInterval(drawConfetti, 16);
+
+    setTimeout(() => {
+      clearInterval(interval);
+      canvas.remove();
+    }, 7000);
+  </script>
+</body>
+</html>
