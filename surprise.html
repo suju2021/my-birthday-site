@@ -28,6 +28,28 @@
       opacity: 0.4;
     }
 
+    header, footer {
+      position: sticky;
+      width: 100%;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+      z-index: 1000;
+    }
+
+    header {
+      top: 0;
+      background: linear-gradient(to right, #ab001b, #7578a7);
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    footer {
+      bottom: 0;
+      background: #7578a7;
+      font-size: 18px;
+    }
+
     .swiper {
       width: 90%;
       height: 80vh;
@@ -67,6 +89,12 @@
       border-radius: 20px;
     }
 
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: #fff;
+      text-shadow: 0 0 5px #000;
+    }
+
     .extra-video {
       width: 100%;
       display: flex;
@@ -84,6 +112,9 @@
 
     .video-buttons {
       margin-top: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .video-buttons button {
@@ -93,9 +124,9 @@
       padding: 10px 20px;
       border-radius: 8px;
       cursor: pointer;
-      font-size: 24px;
+      font-size: 20px;
       box-shadow: 0 0 10px #d61b5e;
-      margin: 0 10px;
+      margin: 10px 10px 0;
       transition: background 0.3s;
     }
 
@@ -103,17 +134,45 @@
       background-color: #a91347;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
       .swiper-slide {
         width: 250px;
-        height: 350px;
+        height: 400px;
       }
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 768px) {
+      .swiper {
+        height: 70vh;
+      }
       .swiper-slide {
-        width: 200px;
-        height: 300px;
+        width: 220px;
+        height: 320px;
+      }
+
+      .video-buttons button {
+        font-size: 18px;
+        padding: 8px 18px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .swiper-slide {
+        width: 180px;
+        height: 280px;
+      }
+
+      .video-buttons button {
+        font-size: 16px;
+        padding: 6px 16px;
+      }
+
+      header {
+        font-size: 18px;
+      }
+
+      footer {
+        font-size: 14px;
       }
     }
 
@@ -138,6 +197,10 @@
 
   <canvas id="confetti-canvas"></canvas>
 
+  <header>
+   🧿💗This for you"MY LOVE"🧿💗
+  </header>
+
   <div class="swiper mySwiper">
     <div class="swiper-wrapper">
       <!-- Slides -->
@@ -158,6 +221,8 @@
       <div class="swiper-slide"><img src="https://uploads.onecompiler.io/434v9ss5m/43q3hu4dn/Snapchat-852842566.jpg" alt="Slide 15"></div>
       <div class="swiper-slide"><img src="https://uploads.onecompiler.io/434v9ss5m/43q3hu4dn/Snapchat-2004243910.jpg" alt="Slide 16"></div>
     </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
   </div>
 
   <div class="extra-video">
@@ -170,6 +235,10 @@
       <button onclick="downloadVideo()">⬇️</button>
     </div>
   </div>
+
+  <footer>
+    🧿💗Created with love for a magical moment💗🧿
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
@@ -189,6 +258,10 @@
       autoplay: {
         delay: 2000,
         disableOnInteraction: false,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
       }
     });
 
