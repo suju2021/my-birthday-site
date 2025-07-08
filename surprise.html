@@ -29,29 +29,42 @@
     }
 
     .swiper {
-      width: 80%;
-      height: 75%;
-      margin: 20px auto 0;
+      width: 90%;
+      height: 80vh;
+      margin: 20px auto;
+      padding-top: 50px;
+      padding-bottom: 50px;
       z-index: 1;
-      border-radius: 20px;
-      box-shadow: 0 0 15px #191970, 0 0 25px #c0c0c0;
     }
 
     .swiper-slide {
       background-position: center;
       background-size: cover;
+      width: 275px;
+      height: 500px;
       display: flex;
       justify-content: center;
       align-items: center;
-      border-radius: 15px;
+      border-radius: 20px;
       overflow: hidden;
-      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      opacity: 0.3;
+      filter: blur(2px);
+      transform: scale(0.95);
+      transition: all 0.5s ease;
+    }
+
+    .swiper-slide-active {
+      opacity: 1 !important;
+      filter: none !important;
+      transform: scale(1.1) !important;
     }
 
     .swiper-slide img {
-      width: 75%;
-      height: 70%;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
+      border-radius: 20px;
     }
 
     .extra-video {
@@ -91,13 +104,17 @@
     }
 
     @media (max-width: 768px) {
-      .swiper { height: 70vh; }
-      .swiper-slide img { width: 90%; height: auto; }
+      .swiper-slide {
+        width: 250px;
+        height: 350px;
+      }
     }
 
     @media (max-width: 500px) {
-      .swiper { width: 95%; height: 60vh; }
-      .swiper-slide img { width: 100%; height: auto; }
+      .swiper-slide {
+        width: 200px;
+        height: 300px;
+      }
     }
 
     #confetti-canvas {
@@ -157,15 +174,21 @@
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
     var swiper = new Swiper(".mySwiper", {
+      effect: "coverflow",
+      grabCursor: true,
+      centeredSlides: true,
       loop: true,
-      autoplay: {
-        delay: 2500,
-        disableOnInteraction: false,
+      slidesPerView: "auto",
+      coverflowEffect: {
+        rotate: 50,
+        stretch: 0,
+        depth: 150,
+        modifier: 1,
+        slideShadows: true,
       },
-      breakpoints: {
-        0: { slidesPerView: 1, spaceBetween: 10 },
-        600: { slidesPerView: 2, spaceBetween: 15 },
-        900: { slidesPerView: 3, spaceBetween: 20 }
+      autoplay: {
+        delay: 2000,
+        disableOnInteraction: false,
       }
     });
 
