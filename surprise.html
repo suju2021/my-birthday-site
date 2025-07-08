@@ -37,10 +37,10 @@
     }
 
     .swiper {
-      width: 90%;
-      height: 80vh;
+      width: 80%;
+      height: 75%;
       margin: 20px auto 0;
-      z-index: 2;
+      z-index: 1;
       border-radius: 20px;
       box-shadow: 0 0 15px #ab001b, 0 0 25px #7578a7;
     }
@@ -68,22 +68,18 @@
       flex-direction: column;
       align-items: center;
       padding: 20px 0 50px;
-      z-index: 1;
+      z-index: -1;
     }
 
     .extra-video video {
-      width: 80%;
-      max-width: 800px;
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      max-width: 90vw;
+      height: auto;
     }
 
     .video-buttons {
       margin-top: 15px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
     }
 
     .video-buttons button {
@@ -95,6 +91,7 @@
       cursor: pointer;
       font-size: 24px;
       box-shadow: 0 0 10px #d61b5e;
+      margin: 0 10px;
       transition: background 0.3s;
     }
 
@@ -111,36 +108,17 @@
         width: 90%;
         height: auto;
       }
-
-      .extra-video video {
-        width: 95%;
-      }
-
-      .video-buttons button {
-        font-size: 20px;
-        padding: 8px 16px;
-      }
     }
 
     @media (max-width: 500px) {
       .swiper {
-        width: 100%;
+        width: 95%;
         height: 60vh;
       }
 
       .swiper-slide img {
-        width: 95%;
+        width: 100%;
         height: auto;
-      }
-
-      .video-buttons {
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .video-buttons button {
-        width: 80%;
-        font-size: 18px;
       }
     }
 
@@ -157,16 +135,13 @@
 </head>
 <body>
 
-  <!-- Confetti -->
   <canvas id="confetti-canvas"></canvas>
 
-  <!-- Background Gradient -->
   <div class="color-overlay"></div>
 
-  <!-- Swiper Slideshow -->
   <div class="swiper mySwiper">
     <div class="swiper-wrapper">
-      <!-- Slideshow -->
+      <!-- Slides -->
       <div class="swiper-slide"><img src="https://uploads.onecompiler.io/434v9ss5m/43q3hu4dn/Snapchat-2004243910.jpg" alt="Slide 1"></div>
       <div class="swiper-slide"><img src="https://uploads.onecompiler.io/434v9ss5m/43q3hu4dn/Snapchat-852842566.jpg" alt="Slide 2"></div>
       <div class="swiper-slide"><img src="https://uploads.onecompiler.io/434v9ss5m/43q3hu4dn/Snapchat-29061473.jpg" alt="Slide 3"></div>
@@ -185,7 +160,7 @@
       <div class="swiper-slide"><img src="https://uploads.onecompiler.io/434v9ss5m/43q3hu4dn/Snapchat-2078274166.jpg" alt="Slide 16"></div>
     </div>
   </div>
-  <!-- Extra Video -->
+
   <div class="extra-video">
     <video id="specialVideo" controls>
       <source src="Mid night.mp4" type="video/mp4">
@@ -205,12 +180,10 @@
         delay: 2500,
         disableOnInteraction: false,
       },
-      slidesPerView: 3,
-      spaceBetween: 20,
       breakpoints: {
-        0: { slidesPerView: 1 },
-        600: { slidesPerView: 2 },
-        900: { slidesPerView: 3 }
+        0: { slidesPerView: 1, spaceBetween: 10 },
+        600: { slidesPerView: 2, spaceBetween: 15 },
+        900: { slidesPerView: 3, spaceBetween: 20 }
       }
     });
 
@@ -235,7 +208,7 @@
       document.body.removeChild(link);
     }
 
-    // Confetti
+    // Confetti Effect
     const canvas = document.getElementById('confetti-canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
