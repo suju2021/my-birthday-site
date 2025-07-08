@@ -14,26 +14,18 @@
       min-height: 100vh;
       overflow-x: hidden;
       font-family: 'Segoe UI', sans-serif;
-      background-color: black;
+      background: black;
     }
 
-    .color-overlay {
+    #bg-video {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      background: linear-gradient(45deg, rgba(171, 0, 27, 0.4), rgba(117, 120, 167, 0.4), rgba(171, 0, 27, 0.4));
-      background-size: 600% 600%;
-      animation: gradientMagic 15s ease infinite;
-      z-index: 1;
-    }
-
-    @keyframes gradientMagic {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.4;
     }
 
     .swiper {
@@ -42,7 +34,7 @@
       margin: 20px auto 0;
       z-index: 1;
       border-radius: 20px;
-      box-shadow: 0 0 15px #ab001b, 0 0 25px #7578a7;
+      box-shadow: 0 0 15px #191970, 0 0 25px #c0c0c0;
     }
 
     .swiper-slide {
@@ -58,7 +50,7 @@
 
     .swiper-slide img {
       width: 75%;
-      height: 75%;
+      height: 70%;
       object-fit: cover;
     }
 
@@ -68,7 +60,6 @@
       flex-direction: column;
       align-items: center;
       padding: 20px 0 50px;
-      z-index: -1;
     }
 
     .extra-video video {
@@ -100,26 +91,13 @@
     }
 
     @media (max-width: 768px) {
-      .swiper {
-        height: 70vh;
-      }
-
-      .swiper-slide img {
-        width: 90%;
-        height: auto;
-      }
+      .swiper { height: 70vh; }
+      .swiper-slide img { width: 90%; height: auto; }
     }
 
     @media (max-width: 500px) {
-      .swiper {
-        width: 95%;
-        height: 60vh;
-      }
-
-      .swiper-slide img {
-        width: 100%;
-        height: auto;
-      }
+      .swiper { width: 95%; height: 60vh; }
+      .swiper-slide img { width: 100%; height: auto; }
     }
 
     #confetti-canvas {
@@ -135,9 +113,13 @@
 </head>
 <body>
 
-  <canvas id="confetti-canvas"></canvas>
+  <!-- 🎥 Background video -->
+  <video autoplay muted loop id="bg-video">
+    <source src="Moon Background.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
 
-  <div class="color-overlay"></div>
+  <canvas id="confetti-canvas"></canvas>
 
   <div class="swiper mySwiper">
     <div class="swiper-wrapper">
@@ -253,7 +235,6 @@
 
     createConfetti();
     const interval = setInterval(drawConfetti, 16);
-
     setTimeout(() => {
       clearInterval(interval);
       canvas.remove();
