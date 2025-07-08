@@ -176,7 +176,7 @@
       }
     }
 
-    #confetti-canvas {
+    #fireworks-canvas {
       position: fixed;
       top: 0;
       left: 0;
@@ -192,16 +192,14 @@
   <!-- 🎥 Background video -->
   <video autoplay muted loop id="bg-video">
     <source src="Moon Background.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
   </video>
 
-  <canvas id="confetti-canvas"></canvas>
+  <canvas id="fireworks-canvas"></canvas>
 
-  <header>
-   🧿💗This for you"MY LOVE"🧿💗
-  </header>
+  <header>🧿💗This is for you "MY LOVE" 💗🧿</header>
 
-  <div class="swiper mySwiper">
+  <!-- Swiper Slideshow -->
+    <div class="swiper mySwiper">
     <div class="swiper-wrapper">
       <!-- Slides -->
       <div class="swiper-slide"><img src="https://uploads.onecompiler.io/434v9ss5m/43q3hu4dn/Snapchat-2078274166.jpg" alt="Slide 1"></div>
@@ -225,10 +223,10 @@
     <div class="swiper-button-prev"></div>
   </div>
 
+  <!-- Extra Video -->
   <div class="extra-video">
     <video id="specialVideo" controls>
       <source src="Mid night.mp4" type="video/mp4">
-      Your browser does not support the video tag.
     </video>
     <div class="video-buttons">
       <button id="toggleButton" onclick="togglePlayPause()">⏸️</button>
@@ -236,9 +234,7 @@
     </div>
   </div>
 
-  <footer>
-    🧿💗Created with love for a magical moment💗🧿
-  </footer>
+  <footer>🧿💗Created with love for a magical moment💗🧿</footer>
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
@@ -286,55 +282,117 @@
       document.body.removeChild(link);
     }
 
-    // Confetti Effect
-    const canvas = document.getElementById('confetti-canvas');
+    // Fireworks Animation
+    const canvas = document.getElementById('fireworks-canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    let confetti = [];
-    const confettiCount = 300;
-    const gravity = 0.5;
-    const colors = ["#f94144", "#f3722c", "#f8961e", "#43aa8b", "#577590", "#f9c74f"];
+    class Firework {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = canvas.height;
+        this.targetY = Math.random() * canvas.height / 2;
+        this.speedY = 5 + Math.random() * 5;
+        this.exploded = false;
+        this.particles = [];
+      }
 
-    function randomRange(min, max) {
-      return Math.random() * (max - min) + min;
-    }
+      update() {
+        if (!this.exploded) {
+          this.y -= this.speedY;
+          if (this.y <= this.targetY) {
+            this.exploded = true;
+            for (let i = 0; i < 50; i++) {
+              this.particles.push(new Particle(this.x, this.y));
+            }
+          }
+        } else {
+          this.particles.forEach(p => p.update());
+        }
+      }
 
-    function createConfetti() {
-      for (let i = 0; i < confettiCount; i++) {
-        confetti.push({
-          x: randomRange(0, canvas.width),
-          y: randomRange(-canvas.height, 0),
-          size: randomRange(5, 10),
-          color: colors[Math.floor(Math.random() * colors.length)],
-          speedX: randomRange(-2, 2),
-          speedY: randomRange(2, 5),
-          opacity: randomRange(0.7, 1)
-        });
+      draw() {
+        if (!this.exploded) {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+          ctx.fillStyle = "white";
+          ctx.fill();
+        } else {
+          this.particles.forEach(p => p.draw());
+        }
+      }
+
+      isDone() {
+        return this.exploded && this.particles.every(p => p.alpha <= 0);
       }
     }
 
-    function drawConfetti() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      confetti.forEach((c, i) => {
-        ctx.globalAlpha = c.opacity;
-        ctx.fillStyle = c.color;
+    class Particle {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.speed = Math.random() * 4 + 2;
+        this.angle = Math.random() * Math.PI * 2;
+        this.alpha = 1;
+        this.gravity = 0.05;
+        this.fade = 0.02;
+        this.color = `hsl(${Math.random() * 360}, 100%, 60%)`;
+      }
+
+      update() {
+        this.x += Math.cos(this.angle) * this.speed;
+        this.y += Math.sin(this.angle) * this.speed + this.gravity;
+        this.alpha -= this.fade;
+      }
+
+      draw() {
+        ctx.globalAlpha = this.alpha;
         ctx.beginPath();
-        ctx.arc(c.x, c.y, c.size, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
         ctx.fill();
-        c.x += c.speedX;
-        c.y += c.speedY + gravity;
-        if (c.y > canvas.height) confetti[i].y = -10;
-      });
+        ctx.globalAlpha = 1;
+      }
     }
 
-    createConfetti();
-    const interval = setInterval(drawConfetti, 16);
-    setTimeout(() => {
-      clearInterval(interval);
-      canvas.remove();
-    }, 7000);
+    let fireworks = [];
+
+    function animateFireworks() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (Math.random() < 0.1) {
+        fireworks.push(new Firework());
+      }
+      fireworks.forEach(f => {
+        f.update();
+        f.draw();
+      });
+      fireworks = fireworks.filter(f => !f.isDone());
+      requestAnimationFrame(animateFireworks);
+    }
+
+    let animationId;
+function startFireworks() {
+  animationId = requestAnimationFrame(startFireworks);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  if (Math.random() < 0.1) {
+    fireworks.push(new Firework());
+  }
+  fireworks.forEach(f => {
+    f.update();
+    f.draw();
+  });
+  fireworks = fireworks.filter(f => !f.isDone());
+}
+
+function stopFireworks() {
+  cancelAnimationFrame(animationId);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+startFireworks();
+setTimeout(stopFireworks, 6000); // stops after 6 seconds
+
   </script>
 </body>
 </html>
