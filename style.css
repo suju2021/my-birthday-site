@@ -122,3 +122,44 @@ body, html {
   .gift-box-emoji { font-size: 4.5rem; }
   .gift-message { font-size: 0.95rem; padding: 15px; }
 }
+@media (max-width: 768px) {
+  .birthday-heading {
+    font-size: 1.1rem;
+    padding: 10px;
+  }
+
+  .gift-box-emoji {
+    font-size: 4rem;
+  }
+
+  .gift-message {
+    font-size: 0.9rem;
+    padding: 15px;
+  }
+
+  #surpriseBtn {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .birthday-heading {
+    font-size: 1rem;
+    padding: 8px;
+  }
+
+  .gift-box-emoji {
+    font-size: 3rem;
+  }
+
+  .gift-message {
+    font-size: 0.85rem;
+  }
+
+  #surpriseBtn {
+    font-size: 0.95rem;
+    padding: 10px 20px;
+  }
+}
+
